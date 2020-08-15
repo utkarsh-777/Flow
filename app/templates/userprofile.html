@@ -8,41 +8,31 @@
     </title>
 </head>
 
-<h1 class="mt-4 mb-4 text-center display-4">{{user}}'s Profile</h1>
-<h1 class="text-center"> My Posts</h1>
+<h1 class="mt-4 mb-4 text-center text-danger display-4">{{user}}'s Profile</h1>
+<h1 class="text-center text-danger"> My Posts</h1>
 
 
 {% if posts %}
 <div class="container text-center mb-4">
-    <ul class="list-group bg-light p-2">
+    <ol start="1" class="text-danger p-2">
 {% for post in posts %}
-    {% if post.PostImage %}
-    <li class="list-group-item text-white mb-4" style="background-image: url(../../media/{{post.PostImage}});">
-        <h1><a class="text-white" href="{% url 'viewpost' post.id %}">{{post.PostTitle}}</a></h1>
+    <li class="container mb-4" style="border-style:inset; border-color: blueviolet; border-width: 5px;" >
+        <h1><a class="" href="{% url 'mypost' post.id %}">{{post.PostTitle}}</a></h1>
         {% if post.DatePosted %}
-        <p class="text-white">Status: posted on {{post.DatePosted}}</p>
+        <p class="text-muted">Status: posted on {{post.DatePosted}}</p>
         {% else %}
-        <p class="text-white">Status:  not posted</p>
+        <p class="text-muted">Status:  not posted</p>
         {% endif %}
-    {% else %}
-    <li class="list-group-item bg-light mb-4">
-        <h1><a class="text-danger" href="{% url 'viewpost' post.id %}">{{post.PostTitle}}</a></h1>
-        {% if post.DatePosted %}
-        <p class="text-danger">Status: posted on {{post.DatePosted}}</p>
-        {% else %}
-        <p class="text-danger">Status:  not posted</p>
-        {% endif %}
-    {% endif %}
-        <h4 class="mt-4">{{post.PostDescription}}</h4>
     </li>
 {% endfor %}
+    </ol>
 
 {% else %}
 
 <h1 class="text-center mt-4">No Posts yet!<a href="{% url 'post' %}"> make a post?</h1>
 
 {% endif %}
-</ul>
+
 </div>
 
 {% endblock %}

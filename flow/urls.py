@@ -36,6 +36,7 @@ urlpatterns = [
     path('post/<int:post_pk>/unpost',views.unpost,name='unpost'),
     path('post/<int:post_pk>/makepost',views.makepost,name='makepost'),
     path('post/<int:post_pk>/deletepost',views.deletepost,name='deletepost'),
+    path('mypost/<int:post_pk>/',views.mypost,name='mypost'),
 
 ]
 

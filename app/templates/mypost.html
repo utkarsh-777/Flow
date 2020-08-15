@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<head>
+    <title>
+        {{post.PostTitle}}
+    </title>
+</head>
+
+<div class="container bg-light text-center border rounded mt-2" style="background-image: url(../../media/{{post.PostImage}});">
+    {% if post.PostImage %}
+
+    <h1 class="display-4 text-white">{{post.PostTitle}}</h1>
+    {% if post.DatePosted %}
+    <h4 class="text-white">{{post.DatePosted}}</h4>
+    {% else %}
+    <h4 class="text-danger">not posted</h4>
+    {% endif %}
+    <h4 class="text-white">by {{post.user}}</h4>
+    <h4 class="p-4 text-white">{{post.PostDescription}}</h4>
+    <a class="btn btn-danger mt-2 mb-2" href="{% url 'viewpost' post.id %}">Edit</a>
+
+    {% else %}
+
+    <h1 class="display-4 text-danger">{{post.PostTitle}}</h1>
+    {% if post.DatePosted %}
+    <h4 class="text-white">{{post.DatePosted}}</h4>
+    {% else %}
+    <h4 class="text-danger">not posted</h4>
+    {% endif %}
+    <h4>by {{post.user}}</h4>
+    <h4 class="p-4">{{post.PostDescription}}</h4>
+    <a class="btn btn-info mt-2 mb-2" href="{% url 'viewpost' post.id %}">Edit</a>
+
+    {% endif %}
+</div>
+
+{% endblock %}

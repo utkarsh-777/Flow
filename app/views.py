@@ -84,6 +84,13 @@ def viewpost(request,post_pk):
         return redirect('userprofile')
 
 @login_required
+def mypost(request,post_pk):
+    mypost = get_object_or_404(PostModel,pk=post_pk,user=request.user)
+    if request.method == 'GET':
+        return render(request,'mypost.html',{'post':mypost})
+
+
+@login_required
 def unpost(request,post_pk):
     post = get_object_or_404(PostModel,pk=post_pk,user=request.user)
     if request.method == 'POST':
