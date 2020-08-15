@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<head>
+    <title>
+        Logout
+    </title>
+</head>
+
+<div class="text-center">
+
+    <h1 class="display-4 text-center mb-4"><img src="{% static 'bower-logo.png' %}" height="55px" width="60px" class="mr-2" /></h1>
+
+    <h1 class="mt-4 mb-2">Logout successful!</h1>
+
+    <h4 class="text-center mt-3">
+        <a href="{% url 'loginuser' %}">Login</a> or 
+        <a href="{% url 'signupuser' %}">Signup</a>
+        to continue using Flow!
+    </h4>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<head>
+    <title>Post</title>
+</head>
+
+<div class="container bg-light border mb-2 mt-4"> 
+    <h2 class="mb-4 mt-2">Write your Post</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <button class="btn btn-block mb-2 btn-outline-success" type="submit">Post</button>
+    </form>
+</div>
+
+{% endblock %}

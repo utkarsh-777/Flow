@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<head>
+  <title>
+      Flow..!
+  </title>
+</head>
+
+<div class="container text-center">
+{% if user.is_authenticated %}
+    <ul class="list-group p-2">
+    {% if posts %}
+    <h1 class="display-4 mt-4 mb-4 text-danger">Poems Starts Here!</h1>
+    {% for post in posts %}
+    <li class="list-group-item bg-light">
+        <div class="card bg-light" style="width: 100%; background-image: url(../../media/{{post.PostImage}});">
+            <div class="card-body">
+              {% if post.PostImage %}
+              <h1 class="card-title"><a href="{% url 'expandpost' post.id %}" class="text-white">{{post.PostTitle}}</a></h1>
+              <p class="text-white"> by {{post.user}}</p>
+              <p class="text-white">{{post.DatePosted}}</p>
+              <p class="card-text text-white">{{post.PostDescription|truncatechars:700}}</p>
+              {% else %}
+              <h1 class="card-title"><a href="{% url 'expandpost' post.id %}" class="text-danger">{{post.PostTitle}}</a></h1>
+              <p> by {{post.user}}</p>
+              <p class="text-muted">{{post.DatePosted}}</p>
+              <p class="card-text">{{post.PostDescription|truncatechars:700}}</p>
+              {% endif %}
+              
+              <a href="{% url 'expandpost' post.id %}" class="btn btn-primary">View Post</a>
+            </div>
+          </div>
+    </li>
+    {% endfor %}
+
+    {% else %}
+
+    <h1 class="display-4 mt-4 mb-4 text-danger">No posts yet! Be the first to<a href="{% url 'post' %}"> Post?</a></h1>
+
+    {% endif %}
+    </ul>
+
+{% else %}
+
+
+<div class="text-center mb-5">
+  <h1 class="display-4">Flow</h1><h4>-- Go with the flow --</h4>
+  <img class="mt-4" src="{% static 'bower-logo.png' %}" height="100px" width="100px" />
+</div>
+<h2 class="text-center mt-3">
+  <a href="{% url 'loginuser' %}">Login</a> or 
+  <a href="{% url 'signupuser' %}">Signup</a>
+  to continue using Flow!
+</h2>
+
+{% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<head>
+    <title>Edit Post</title>
+</head>
+
+<div class="container border bg-light mt-4 mb-2">
+    <h2 class="mb-4 mt-2">Edit your Post</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-success btn-block m-2" type="submit">Save</button>
+    </form>
+
+
+    <div class="row">
+        <div class="col-6 text-center">
+            {% if date %}
+
+            <form method="POST" action="{% url 'unpost' id %}">
+                {% csrf_token %}
+                <button class="btn btn-info btn-block m-2" type="submit">UnPost</button>
+            </form>
+
+            {% else %}
+
+            <form method="POST" action="{% url 'makepost' id %}">
+                {% csrf_token %}
+                <button class="btn btn-info btn-block m-2" type="submit">Make Post</button>
+            </form>
+
+            {% endif %}
+        </div>
+        <div class="col-6 text-center">
+            <form method="POST" action="{% url 'deletepost' id %}">
+                {% csrf_token %}
+                <button class="btn btn-danger btn-block m-2" type="submit">Delete Post</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
