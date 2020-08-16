@@ -16,7 +16,7 @@
 <div class="container text-center mb-4">
     <ol start="1" class="text-danger p-2">
 {% for post in posts %}
-    <li class="container mb-4" style="border-style:inset; border-color: blueviolet; border-width: 5px;" >
+    <li class="container mb-4 bg-light" style="border-style:inset; border-color: blueviolet; border-width: 5px;" >
         <h1><a class="" href="{% url 'mypost' post.id %}">{{post.PostTitle}}</a></h1>
         {% if post.DatePosted %}
         <p class="text-muted">Status: posted on {{post.DatePosted}}</p>
