@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import Postform
 from .models import PostModel
 from django.utils import timezone
+from django.contrib import messages
 
 def home(request):
     posts = PostModel.objects.filter(DatePosted__isnull=False).order_by('-DatePosted')
@@ -21,6 +22,7 @@ def signupuser(request):
                 user = User.objects.create_user(request.POST['username'],password=request.POST['password1'])
                 user.save()
                 login(request,user)
+                messages.success(request,'Signup Successful!')
                 return redirect('home')
             except IntegrityError:
                 return render(request,'signupuser.html',{'form':UserCreationForm,'error':'Username taken!'})
@@ -34,6 +36,7 @@ def loginuser(request):
         user = authenticate(request,username=request.POST['username'],password=request.POST['password'])
         if user:
             login(request,user)
+            messages.success(request,'Login Successful!')
             return redirect('home')
         else:
             return render(request,'loginuser.html',{'form':AuthenticationForm,'error':'Username and Password does not match!'})
@@ -54,6 +57,7 @@ def post(request):
         newpost.user = request.user
         newpost.DatePosted = timezone.now()
         newpost.save()
+        messages.success(request,'Posted Successfully!')
         return redirect('home')
 
 @login_required
@@ -70,6 +74,7 @@ def savepost(request):
         newpost = post.save(commit=False)
         newpost.user = request.user
         newpost.save()
+        messages.success(request,'Saved Successfully!')
         return redirect('userprofile')
 
 @login_required
@@ -96,6 +101,7 @@ def unpost(request,post_pk):
     if request.method == 'POST':
         post.DatePosted = None
         post.save()
+        messages.success(request,'Unposted!')
         return redirect('userprofile')
 
 @login_required
@@ -104,6 +110,7 @@ def makepost(request,post_pk):
     if request.method == 'POST':
         post.DatePosted = timezone.now()
         post.save()
+        messages.success(request,'Posted Successfully!')
         return redirect('home')
 
 @login_required
@@ -111,6 +118,7 @@ def deletepost(request,post_pk):
     post = get_object_or_404(PostModel,pk=post_pk,user=request.user)
     if request.method == 'POST':
         post.delete()
+        messages.success(request,'Deleted Successfully!')
         return redirect('userprofile')
 
 @login_required
